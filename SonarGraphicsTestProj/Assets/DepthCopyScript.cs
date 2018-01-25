@@ -36,6 +36,7 @@ public class DepthCopyScript : MonoBehaviour {
 	Process process;
 
 	bool processRunning = false;
+	bool didRun = false;
     bool cpressed = false;
 	bool bpressed = false;
     byte[] bytes;
@@ -49,7 +50,9 @@ public class DepthCopyScript : MonoBehaviour {
         tex = new Texture2D(GetComponent<Camera>().pixelWidth, GetComponent<Camera>().pixelHeight, TextureFormat.RGBA32, false);
 
         bytes = new byte[4*GetComponent<Camera>().pixelWidth*GetComponent<Camera>().pixelHeight];
-        /*unmanagedPointer = Marshal.AllocHGlobal(bytes.Length);
+        
+		print ("DIR" + Directory.GetCurrentDirectory ());
+		/*unmanagedPointer = Marshal.AllocHGlobal(bytes.Length);
         
         long foo = unmanagedPointer.ToInt64();
         byte[] infoFile = System.BitConverter.GetBytes(foo);
@@ -58,18 +61,54 @@ public class DepthCopyScript : MonoBehaviour {
         print("stuff");
         print(System.BitConverter.ToString(infoFile));
         print(unmanagedPointer.ToString());
-        print(infoFile[7].ToString());*/
-		fullPath =  Application.dataPath + "/../../SONARBackEnd/x64/Debug/SONARBackEnd.exe";
+       // print(infoFile[7].ToString());*/
 
-		if (processRunning) {
+
+
+
+
+
+
+		/*bool debugging = false;
+		if (debugging) {
+			fullPath = Application.dataPath + "/../../SONARBackEnd/x64/Debug/SONARBackEnd.exe";
+		} else {
+			//fullPath = Application.dataPath + "/../BackEnd/SONARBackEnd.exe";
+			fullPath = Application.dataPath + "/../BackEnd/Transfer.exe";
+		}
+
+		process = new Process ();/*
+
+
+
+
+		process = System.Diagnostics.Process.Start (fullPath);
+		print ("PATH IS: " + fullPath);
+		//process.StartInfo.FileName = fullPath;
+		//process.Start ();
+		/*process.StartInfo.FileName = fullPath;
+		process.StartInfo.Arguments = "";
+		process.Start ();
+		//process = Process.Start (fullPath);
+		print ("PATH IS: " + fullPath);
+		//process = Process.Start (fullPath);
+		processRunning = true;
+		didRun = true; 
+		print ("here");/*
+
+
+		/*if (processRunning) {
 			process.Kill ();
 		}
 		bpressed = true;
-		print ("PATH IS:" + Application.dataPath);
+		print ("PATH IS: " + fullPath);
 
 		print (fullPath);
-		process = System.Diagnostics.Process.Start (fullPath);
-		processRunning = true;
+        System.Threading.Thread.Sleep(1000);
+		process = Process.Start (fullPath);
+		//process = Process.Start (fullPath);
+		processRunning = true;*/
+		
 
 
     }
@@ -97,6 +136,19 @@ public class DepthCopyScript : MonoBehaviour {
 			Application.Quit();
 
 		}
+		/*bool debugging = false;
+		if (debugging) {
+			fullPath = Application.dataPath + "/../../SONARBackEnd/x64/Debug/SONARBackEnd.exe";
+		} else {
+			//fullPath = Application.dataPath + "/../BackEnd/SONARBackEnd.exe";
+			fullPath = Application.dataPath + "/../BackEnd/Transfer.exe";
+		}
+
+		process = new Process ();
+		process = System.Diagnostics.Process.Start (fullPath);
+		print ("PATH IS: " + fullPath);*/
+
+
 
         
     }
@@ -106,6 +158,39 @@ public class DepthCopyScript : MonoBehaviour {
 		if (Input.GetKeyDown ("c")) {
 			cpressed = !cpressed;
 		} 
+
+	/*	if (Input.GetKeyDown ("k")) {
+			//Process process = new Process();
+			process.StartInfo.FileName = fullPath;
+			process.Start ();
+			//process = Process.Start (fullPath);
+			print ("PATH IS: " + fullPath);
+			//process = Process.Start (fullPath);
+			processRunning = true;
+			didRun = true; 
+			print ("here");
+		}
+		*/
+
+
+		/* if (Input.anyKey &&
+		 !didRun) {
+			if (processRunning) {
+				process.Kill ();
+			}
+			bpressed = true;
+			print ("PATH IS: " + fullPath);
+
+			print (fullPath);
+			process = Process.Start (fullPath);
+			//process = Process.Start (fullPath);
+			processRunning = true;
+			didRun = true; 
+			print ("here");
+		}
+		*/
+
+
 		//if (Input.GetKeyDown ("b")) {
 			//if (processRunning) {
 			//	process.Kill ();
@@ -150,7 +235,7 @@ public class DepthCopyScript : MonoBehaviour {
 		//Copies the raw texture data to the pointer to the shared memory space provided by the DLL
 //		Marshal.Copy(bytes, 0, unmanagedPointer, bytes.Length);
 		//int x = GetSizeMem();
-		print("new size is: " + bytes.Length);
+		//print("new size is: " + bytes.Length);
 		//print ("SHMSize is: " + x);
 
 		if (Application.platform == RuntimePlatform.WindowsPlayer) {
@@ -179,7 +264,7 @@ public class DepthCopyScript : MonoBehaviour {
     void OnDisable()
     {
 		UnmapFile();
-		process.Kill();
+		//process.Kill ();
         print("unmapping");
     }
 }
